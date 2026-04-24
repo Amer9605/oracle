@@ -85,6 +85,27 @@ body {
 
 #arch-container, #dg-container { flex: 1; position: relative; width: 100%; height: 100%; overflow: hidden;}
 
+/* Step Tracker */
+.step-tracker {
+    display: flex; gap: 10px; padding: 10px 15px; background: rgba(0,0,0,0.5);
+    border-bottom: 1px solid var(--border-main);
+    transition: all 0.3s;
+}
+.step-tracker.hidden { display: none; }
+.step {
+    flex: 1; text-align: center; padding: 6px; background: #1E293B;
+    border: 1px solid #334155; border-radius: 4px; font-size: 0.8rem;
+    color: var(--text-muted); font-weight: bold; transition: all 0.3s;
+}
+.step.active {
+    background: rgba(59, 130, 246, 0.2); border-color: var(--color-primary);
+    color: #fff; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+.step.done {
+    background: rgba(16, 185, 129, 0.2); border-color: var(--color-success);
+    color: var(--color-success);
+}
+
 /* Sidebar Controls */
 .sidebar-section { padding: 20px; display: flex; flex-direction: column; }
 .sidebar-section h3 { margin-top: 0; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-main); padding-bottom: 8px; margin-bottom: 15px;}
