@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle 19c Enterprise Simulator</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/></svg>
+            <span>Oracle 19c Enterprise Simulator <small class="version-tag">v2.0 Advanced</small></span>
+        </div>
+        <div class="metrics">
+            <div class="metric-box">Global SCN: <span id="scn-counter" class="scn-value">1000000</span></div>
+            <div class="metric-box">Role: <span id="primary-role" class="role-value">PRIMARY</span></div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <main class="diagrams-area">
+            <!-- Primary Architecture Panel -->
+            <div class="panel arch-section">
+                <div class="panel-header">
+                    <h2 id="left-title">Primary Database Instance Architecture</h2>
+                    <span class="status-indicator online">ONLINE</span>
+                </div>
+                <div id="arch-container"></div>
+            </div>
+            
+            <!-- Data Guard Panel -->
+            <div class="panel dg-section">
+                <div class="panel-header">
+                    <h2 id="right-title">Data Guard & Physical Standby Topology</h2>
+                    <div class="lag-badge" id="lag-indicator">Lag: 0 SCN</div>
+                </div>
+                <div id="dg-container"></div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-section controls-panel">
+                <h3>Instance Operations</h3>
+                <div class="btn-grid">
+                    <button id="btn-select" class="btn-primary">Execute SELECT</button>
+                    <button id="btn-update" class="btn-success">Execute UPDATE</button>
+                    <button id="btn-ckpt" class="btn-warning">Force Checkpoint</button>
+                    <button id="btn-logswitch" class="btn-info">Switch Redo Log</button>
+                    <button id="btn-awr" class="btn-secondary">AWR Snapshot</button>
+                    <button id="btn-im" class="btn-secondary">Populate IM</button>
+                </div>
+                
+                <h3>Disaster Recovery</h3>
+                <div class="btn-grid dual">
+                    <button id="btn-failover" class="btn-danger">Simulate Crash (Failover)</button>
+                    <button id="btn-switchover" class="btn-warning">Graceful Switchover</button>
+                </div>
+                
+                <div class="sliders-container">
+                    <div class="slider-group">
+                        <label>Protection Mode:</label>
+                        <select id="sel-protection" class="tech-select">
+                            <option value="MAX_PERFORMANCE">Max Performance (ASYNC)</option>
+                            <option value="MAX_AVAILABILITY">Max Availability (SYNC)</option>
+                        </select>
+                    </div>
+                    <div class="slider-group">
+                        <label>Network Latency (<span id="val-latency">50</span>ms):</label>
+                        <input type="range" id="slide-latency" min="10" max="1500" value="50" class="tech-slider">
+                    </div>
+                    <div class="slider-group">
+                        <label>DML Burst Intensity:</label>
+                        <input type="range" id="slide-dml" min="1" max="100" value="10" class="tech-slider">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section log-panel">
+                <h3>Diagnostic Event Log</h3>
+                <div id="event-log"></div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Global Tooltip -->
+    <div id="tooltip" class="tooltip hidden"></div>
+
+    <!-- Main Module Entry -->
+    <script type="module" src="./js/simulation.js"></script>
+</body>
+</html>
